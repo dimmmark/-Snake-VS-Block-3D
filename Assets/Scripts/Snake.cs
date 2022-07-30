@@ -7,6 +7,10 @@ public class Snake : MonoBehaviour
 
     [SerializeField] Head _head;
     [SerializeField] float _speed;
+    [SerializeField] float _speedR;
+    private Vector3 _previosMousePosition;
+    [SerializeField] private Transform Head;
+   
     void Start()
     {
         
@@ -14,6 +18,16 @@ public class Snake : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _head.transform.position = _head.transform.position + _head.transform.forward * _speed * Time.fixedDeltaTime;
+        _head.transform.position += _head.transform.forward * _speed * Time.fixedDeltaTime;
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 delta = Input.mousePosition - _previosMousePosition;
+            _head.transform.position += _head.transform.right * _speedR* delta.x * Time.fixedDeltaTime;
+           
+           // Debug.Log(delta);
+        }
+
+
+        _previosMousePosition = Input.mousePosition;
     }
 }
