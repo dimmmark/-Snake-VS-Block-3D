@@ -10,10 +10,13 @@ public class Snake : MonoBehaviour
     [SerializeField] float _speedR;
     private Vector3 _previosMousePosition;
     [SerializeField] private Transform Head;
+    private List<Segment> _tail;
+    private SnakeGenerator _tailGenerator;
    
-    void Start()
+    void Awake()
     {
-        
+        _tailGenerator = GetComponent<SnakeGenerator>();
+        _tail = _tailGenerator.Generate();
     }
 
     private void FixedUpdate()
