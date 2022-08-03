@@ -22,10 +22,15 @@ public class Snake : MonoBehaviour
         _tail = _tailGenerator.Generate();
         SizeUpdated?.Invoke(_tail.Count);
     }
+    private void Start()
+    {
+        SizeUpdated?.Invoke(_tail.Count);
+    }
 
     private void OnEnable()
     {
         _head.CubeCollided += OnCubeCillided;
+
     }
 
     private void OnDisable()

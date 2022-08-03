@@ -13,6 +13,7 @@ public class SnakeSizeView : MonoBehaviour
     private void Awake()
     {
         _snake = GetComponent<Snake>();
+      
     }
 
 
