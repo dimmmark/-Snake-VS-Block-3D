@@ -14,12 +14,12 @@ public class Snake : MonoBehaviour
     private List<Segment> _tail;
     private SnakeGenerator _tailGenerator;
     [SerializeField] private float _tailConnect;
-
+    [SerializeField] private int _snakeSize;
     public event UnityAction<int> SizeUpdated;
     void Awake()
     {
         _tailGenerator = GetComponent<SnakeGenerator>();
-        _tail = _tailGenerator.Generate();
+        _tail = _tailGenerator.Generate(_snakeSize);
         SizeUpdated?.Invoke(_tail.Count);
     }
     private void Start()
@@ -30,12 +30,14 @@ public class Snake : MonoBehaviour
     private void OnEnable()
     {
         _head.CubeCollided += OnCubeCillided;
+        _head.BonusCollected += onBonusCollected;
 
     }
 
     private void OnDisable()
     {
         _head.CubeCollided -= OnCubeCillided;
+        _head.BonusCollected -= onBonusCollected;
     }
     private void OnCubeCillided()
     {
@@ -43,6 +45,11 @@ public class Snake : MonoBehaviour
         _tail.Remove(deletedSegment);
         Destroy(deletedSegment.gameObject);
 
+        SizeUpdated?.Invoke(_tail.Count);
+    }
+    private void onBonusCollected(int bonusSize)
+    {
+        _tail.AddRange(_tailGenerator.Generate(bonusSize));
         SizeUpdated?.Invoke(_tail.Count);
     }
 
