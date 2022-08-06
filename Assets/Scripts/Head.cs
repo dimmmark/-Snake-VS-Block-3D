@@ -7,6 +7,10 @@ public class Head : MonoBehaviour
 {
     public event UnityAction CubeCollided;
     public event UnityAction<int> BonusCollected;
+    public Snake Snake;
+    public Game Game;
+
+
 
 
 
@@ -14,8 +18,22 @@ public class Head : MonoBehaviour
     {
         if(collision.gameObject.TryGetComponent(out Cube cube))
         {
-            CubeCollided?.Invoke();
-            cube.Fill();
+
+
+            if (Snake._tail.Count == 0)
+            {
+               // Debug.Log("Game Over");
+               Snake.enabled = false;   
+                 Game.OnSnakeDied();
+            }
+            else
+            {
+                CubeCollided?.Invoke();
+                cube.Fill();
+            }
+
+
+
         }
     }
 

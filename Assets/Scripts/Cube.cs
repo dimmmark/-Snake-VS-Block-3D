@@ -25,7 +25,7 @@ public class Cube : MonoBehaviour
        
         _fill++;
         FillingUpdated?.Invoke(LeftToFill);
-        Debug.Log(_fill);
+        //Debug.Log(_fill);
         if (_fill == _count)
         {
             Destroy(gameObject);

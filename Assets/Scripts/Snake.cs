@@ -11,11 +11,13 @@ public class Snake : MonoBehaviour
     [SerializeField] float _speedR;
     private Vector3 _previosMousePosition;
     [SerializeField] private Transform Head;
-    private List<Segment> _tail;
+    public List<Segment> _tail;
     private SnakeGenerator _tailGenerator;
     [SerializeField] private float _tailConnect;
     [SerializeField] private int _snakeSize;
     public event UnityAction<int> SizeUpdated;
+    public Game Game;
+  // public Snake _Snake;
     void Awake()
     {
         _tailGenerator = GetComponent<SnakeGenerator>();
@@ -40,17 +42,25 @@ public class Snake : MonoBehaviour
         _head.BonusCollected -= onBonusCollected;
     }
     private void OnCubeCillided()
-    {
-        Segment deletedSegment = _tail[_tail.Count - 1];
-        _tail.Remove(deletedSegment);
-        Destroy(deletedSegment.gameObject);
+    { 
+           
+        
+            Segment deletedSegment = _tail[_tail.Count - 1];
+            _tail.Remove(deletedSegment);
+            Destroy(deletedSegment.gameObject);
 
-        SizeUpdated?.Invoke(_tail.Count);
+            SizeUpdated?.Invoke(_tail.Count);
+       
     }
     private void onBonusCollected(int bonusSize)
     {
         _tail.AddRange(_tailGenerator.Generate(bonusSize));
         SizeUpdated?.Invoke(_tail.Count);
+    }
+
+    public void Die()
+    {
+        Game.OnSnakeDied();
     }
 
 
@@ -77,7 +87,10 @@ public class Snake : MonoBehaviour
             segment.transform.position = Vector3.Lerp(segment.transform.position, previosPosition,_tailConnect * Time.fixedDeltaTime);
             previosPosition = tempPosition;
         }
+
         
        
+
+
     }
 }
