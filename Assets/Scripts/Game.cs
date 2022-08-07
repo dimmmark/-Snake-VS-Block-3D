@@ -6,6 +6,7 @@ public class Game : MonoBehaviour
 {
     public Snake Snake;
     public GameObject LoseScreen;
+    public GameObject WinScreen;
    public enum State
     {
         Playing,
@@ -26,7 +27,7 @@ public class Game : MonoBehaviour
         if (CurrentState != State.Playing) return;
         CurrentState= State.Won;
         Snake.enabled = false;
-        Debug.Log("You won");
+        WinScreen.SetActive(true);
 
     }
     
