@@ -46,4 +46,9 @@ public class Head : MonoBehaviour
         }
     }
 
+    public void ReachFinish()
+    {
+        Game.OnSnakeReachedFinish();
+    }
+
 }

@@ -58,10 +58,7 @@ public class Snake : MonoBehaviour
         SizeUpdated?.Invoke(_tail.Count);
     }
 
-    public void Die()
-    {
-        Game.OnSnakeDied();
-    }
+   
 
 
 
