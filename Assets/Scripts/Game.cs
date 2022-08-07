@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
@@ -25,10 +26,29 @@ public class Game : MonoBehaviour
     public void OnSnakeReachedFinish()
     {
         if (CurrentState != State.Playing) return;
+        LevelIndex++;
         CurrentState= State.Won;
         Snake.enabled = false;
         WinScreen.SetActive(true);
 
     }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private const string LevelIndexKey = "LevelIndex";
+
+    public int LevelIndex
+    {
+        get => PlayerPrefs.GetInt(LevelIndexKey);
+        private set
+        {
+            PlayerPrefs.SetInt(LevelIndexKey, value);
+            PlayerPrefs.Save();
+        }
+    }
+
     
 }
