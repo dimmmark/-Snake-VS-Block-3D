@@ -8,6 +8,7 @@ public class Game : MonoBehaviour
     public GameObject LoseScreen;
     public GameObject WinScreen;
     public Text textLevel;
+    public Text scoreText;
     public enum State
     {
         Playing,
@@ -22,6 +23,7 @@ public class Game : MonoBehaviour
         CurrentState = State.Loss;
         Debug.Log("Game Over");
         LoseScreen.SetActive(true);
+        scoreText.text = Snake.tempCount.ToString();
 
     }
     public void OnSnakeReachedFinish()
