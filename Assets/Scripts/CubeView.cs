@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -9,7 +7,7 @@ public class CubeView : MonoBehaviour
     private Cube _cube;
     void Awake()
     {
-        _cube = GetComponent<Cube>(); 
+        _cube = GetComponent<Cube>();
     }
 
     // Update is called once per frame

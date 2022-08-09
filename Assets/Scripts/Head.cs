@@ -1,5 +1,3 @@
- using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,15 +14,15 @@ public class Head : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if(collision.gameObject.TryGetComponent(out Cube cube))
+        if (collision.gameObject.TryGetComponent(out Cube cube))
         {
 
 
             if (Snake._tail.Count == 0)
             {
-               // Debug.Log("Game Over");
-               Snake.enabled = false;   
-                 Game.OnSnakeDied();
+                // Debug.Log("Game Over");
+                Snake.enabled = false;
+                Game.OnSnakeDied();
             }
             else
             {
@@ -39,7 +37,7 @@ public class Head : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-       if(other.TryGetComponent(out Bonus bonus))
+        if (other.TryGetComponent(out Bonus bonus))
         {
             BonusCollected?.Invoke(bonus.Collect());
 

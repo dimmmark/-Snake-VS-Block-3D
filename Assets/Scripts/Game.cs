@@ -1,14 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
     public Snake Snake;
     public GameObject LoseScreen;
     public GameObject WinScreen;
-   public enum State
+    public Text textLevel;
+    public enum State
     {
         Playing,
         Won,
@@ -22,14 +22,16 @@ public class Game : MonoBehaviour
         CurrentState = State.Loss;
         Debug.Log("Game Over");
         LoseScreen.SetActive(true);
+
     }
     public void OnSnakeReachedFinish()
     {
         if (CurrentState != State.Playing) return;
         LevelIndex++;
-        CurrentState= State.Won;
+        CurrentState = State.Won;
         Snake.enabled = false;
         WinScreen.SetActive(true);
+        textLevel.text = ($"Level {LevelIndex.ToString()} passed. ({Snake.tempCount} pt)");
 
     }
 
@@ -50,5 +52,5 @@ public class Game : MonoBehaviour
         }
     }
 
-    
+
 }

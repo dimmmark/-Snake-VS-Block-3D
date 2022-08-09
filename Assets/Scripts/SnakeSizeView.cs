@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -13,13 +11,13 @@ public class SnakeSizeView : MonoBehaviour
     private void Awake()
     {
         _snake = GetComponent<Snake>();
-      
+
     }
 
 
     private void OnEnable()
     {
-        _snake.SizeUpdated += OnSizeUpdated; 
+        _snake.SizeUpdated += OnSizeUpdated;
     }
 
     private void OnDisable()

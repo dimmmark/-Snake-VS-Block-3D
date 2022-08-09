@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -17,7 +16,8 @@ public class Snake : MonoBehaviour
     [SerializeField] private int _snakeSize;
     public event UnityAction<int> SizeUpdated;
     public Game Game;
-  // public Snake _Snake;
+    public int tempCount = 0;
+    // public Snake _Snake;
     void Awake()
     {
         _tailGenerator = GetComponent<SnakeGenerator>();
@@ -42,15 +42,11 @@ public class Snake : MonoBehaviour
         _head.BonusCollected -= onBonusCollected;
     }
     private void OnCubeCillided()
-    { 
-           
-        
-            Segment deletedSegment = _tail[_tail.Count - 1];
-            _tail.Remove(deletedSegment);
-            Destroy(deletedSegment.gameObject);
-
-            SizeUpdated?.Invoke(_tail.Count);
-       
+    {
+        Segment deletedSegment = _tail[_tail.Count - 1];
+        _tail.Remove(deletedSegment);
+        Destroy(deletedSegment.gameObject);
+        SizeUpdated?.Invoke(_tail.Count);
     }
     private void onBonusCollected(int bonusSize)
     {
@@ -58,36 +54,34 @@ public class Snake : MonoBehaviour
         SizeUpdated?.Invoke(_tail.Count);
     }
 
-   
-
-
-
-
-
-
-
     private void FixedUpdate()
     {
         _head.transform.position += _head.transform.forward * _speed * Time.fixedDeltaTime;
         if (Input.GetMouseButton(0))
         {
-           Vector3 delta = Input.mousePosition - _previosMousePosition;
-            _head.transform.position += _head.transform.right * _speedR* delta.x * Time.fixedDeltaTime;
-           
-           // Debug.Log(delta);
+
+            Vector3 delta = Input.mousePosition - _previosMousePosition;
+
+            _head.transform.position += _head.transform.right * _speedR * delta.x * Time.fixedDeltaTime;
+
+
+            // Debug.Log(delta);
         }
-         _previosMousePosition = Input.mousePosition;
+        _previosMousePosition = Input.mousePosition;
         Vector3 previosPosition = _head.transform.position;
         foreach (Segment segment in _tail)
         {
             Vector3 tempPosition = segment.transform.position;
-            segment.transform.position = Vector3.Lerp(segment.transform.position, previosPosition,_tailConnect * Time.fixedDeltaTime);
+            segment.transform.position = Vector3.Lerp(segment.transform.position, previosPosition, _tailConnect * Time.fixedDeltaTime);
             previosPosition = tempPosition;
         }
 
-        
-       
+        if(_tail.Count > tempCount)
+        {
+            tempCount = _tail.Count;
+        }
 
 
+        Debug.Log(tempCount);
     }
 }
