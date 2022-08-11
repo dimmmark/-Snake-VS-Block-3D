@@ -11,6 +11,7 @@ public class Cube : MonoBehaviour
     public int LeftToFill => _count - _fill;
     public UnityAction<int> FillingUpdated;
     AudioSource AudioSourceBoom;
+    MeshRenderer ColorMat;
 
 
 
@@ -18,6 +19,19 @@ public class Cube : MonoBehaviour
     {
         FillingUpdated?.Invoke(LeftToFill);
         AudioSourceBoom = GetComponent<AudioSource>();
+        ColorMat = GetComponent<MeshRenderer>();
+        if(_count <= 2)
+        ColorMat.material.color = Color.white;
+        else if (_count <= 5)
+            ColorMat.material.color = Color.yellow;
+        else if (_count <= 10)
+            ColorMat.material.color = Color.green;
+        else if(_count <= 20)
+            ColorMat.material.color = Color.red;
+        else if(_count <= 30)
+            ColorMat.material.color = Color.gray;
+        else if (_count <= 40)
+            ColorMat.material.color = Color.black;
     }
 
     public void Fill()
