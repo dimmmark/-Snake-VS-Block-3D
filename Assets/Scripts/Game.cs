@@ -9,6 +9,12 @@ public class Game : MonoBehaviour
     public GameObject WinScreen;
     public Text textLevel;
     public Text scoreText;
+    AudioSource audioSource;
+
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     public enum State
     {
         Playing,
@@ -24,6 +30,7 @@ public class Game : MonoBehaviour
         Debug.Log("Game Over");
         LoseScreen.SetActive(true);
         scoreText.text = Snake.tempCount.ToString();
+        audioSource.Pause();
 
     }
     public void OnSnakeReachedFinish()
@@ -34,6 +41,7 @@ public class Game : MonoBehaviour
         Snake.enabled = false;
         WinScreen.SetActive(true);
         textLevel.text = ($"Level {LevelIndex.ToString()} passed. ({Snake.tempCount} pt)");
+        audioSource.Pause();
 
     }
 

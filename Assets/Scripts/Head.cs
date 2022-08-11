@@ -7,10 +7,14 @@ public class Head : MonoBehaviour
     public event UnityAction<int> BonusCollected;
     public Snake Snake;
     public Game Game;
+    AudioSource audioSourceNyam;
 
 
 
-
+    private void Start()
+    {
+        audioSourceNyam = GetComponent<AudioSource>();
+    }
 
     private void OnCollisionStay(Collision collision)
     {
@@ -39,6 +43,7 @@ public class Head : MonoBehaviour
     {
         if (other.TryGetComponent(out Bonus bonus))
         {
+            audioSourceNyam.Play();
             BonusCollected?.Invoke(bonus.Collect());
 
         }
